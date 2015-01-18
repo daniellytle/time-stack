@@ -11,6 +11,8 @@ app.use(bodyParser.urlencoded({     // to support URL-encoded bodies
   extended: true
 })); 
 
+var port = process.env.PORT || 8080;
+
 var valid = false;
 
 var user =  {pic: 'lkj', name: "dan"};
@@ -135,7 +137,7 @@ app.get('/api', function(req, res) {
   console.log(req.body.id);
 })
 
-app.listen(8080);
+app.listen(port);
 
 
 
