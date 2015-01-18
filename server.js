@@ -51,7 +51,7 @@ passport.use(new FacebookStrategy({
       authType: 'reauthenticate',
 	    clientID: 576135949186286,
 	    clientSecret: "8a64a0fa23ef2c44b6c7803fc5ebee28",
-	    callbackURL: "http://localhost:8080/auth/facebook/callback",
+	    callbackURL: "/auth/facebook/callback",
 	    enableProof: false,
 	    profileFields: ['id', 'displayName', 'link', 'photos', 'email']
 	},
