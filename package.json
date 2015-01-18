@@ -13,7 +13,8 @@
     "mongodb": "1.4.28",
     "mongoose": "3.8.12",
     "node-restful": "0.1.17",
-    "stylus": "^0.49.3"
+    "stylus": "^0.49.3",
+    "browserify": "latest"
   },
   "devDependencies": {
     "grunt": "latest",

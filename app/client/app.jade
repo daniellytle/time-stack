@@ -1,0 +1,28 @@
+head
+	link(rel='stylesheet', href='/css/app.min.css')
+	link(rel='stylesheet', href='/css/pikaday.css')
+body
+	script(type='text/javascript') console.log("h")
+	.topBar 
+		img(src='#{user.pic}', id='profPic')
+		.name 
+			.inner #{user.name}
+		a(href='/logout')
+			.logout 
+				.inner Logout
+		.logo 
+			.inner GottaDo
+	form.newHolder#f
+		.newTop
+			input(placeholder='Task')#task
+		input(placeholder='Due')#datepicker.daySelect
+		#goButton
+	.todos
+		each i in user.todos
+			.todo= i.name
+	.hidden #{user.facebookId}
+
+script(type='text/javascript' src='https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js')
+script(type='text/javascript' src='/js/moment.js')
+script(type='text/javascript' src='/js/pikaday.js')
+script(type='text/javascript' src='/js/app.min.js')

@@ -4,12 +4,9 @@ module.exports = function(grunt) {
 
         CLIENT_DIR: 'app/client',
         uglify: {
-            options: {
-                banner: '/ *GottaDo - <%= grunt.template.today("mm-dd-yyyy") %> - ☮ & ♥ */\n'
-            },
             compile: {
                 files: {
-                    'public/js/app.min.js': ['<%= browserify.compile.dest %>']
+                    'public/js/app.min.js': ['<%= CLIENT_DIR %>/app.js']
                 }
             }
         },
@@ -19,12 +16,12 @@ module.exports = function(grunt) {
                 dest: 'public/js/app.js'
             }
         },
-        jade: {
-            compile: {
-                src: ['<%= CLIENT_DIR %>/*.jade'],
-                dest: 'public/index.html'
-            }
-        },
+        // jade: {
+        //     compile: {
+        //         src: ['<%= CLIENT_DIR %>/*.jade'],
+        //         dest: 'public/index.html'
+        //     }
+        // },
         stylus: {
             compile: {
                 options: {
@@ -41,20 +38,17 @@ module.exports = function(grunt) {
         },
         watch: {
             browserify: {
-                files: ['<%= CLIENT_DIR %>/**/*.js','<%= CLIENT_DIR %>/app.js'],
-                tasks: ['browserify:compile','uglify:compile']
+                files: ['<%= CLIENT_DIR %>/app.js'],
+                tasks: ['uglify:compile']
             },
             stylus: {
                 files: ['<%= CLIENT_DIR %>/**/*.styl','<%= CLIENT_DIR %>/app.styl'],
                 tasks: ['stylus:compile']
-            },
-            jade: {
-                files: ['<%= CLIENT_DIR %>/**/*.jade','<%= CLIENT_DIR %>/*.jade'],
-                tasks: ['jade:compile']
-            },
-            src: {
-                files: ['app/model/*.js']
             }
+            // jade: {
+            //     files: ['<%= CLIENT_DIR %>/**/*.jade','<%= CLIENT_DIR %>/*.jade'],
+            //     tasks: ['jade:compile']
+            // }
         },
         concurrent: {
             tasks: ['watch','nodemon'],
@@ -79,6 +73,6 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-shell')
     grunt.registerTask('reset', ['shell:reset'])
     grunt.registerTask('prototype', ['jade:prototype','stylus:prototype','watch:prototype','concurrent'])
-    grunt.registerTask('compile', ['jade:compile','stylus:compile','browserify:compile','uglify:compile'])
+    grunt.registerTask('compile', ['stylus:compile','browserify:compile','uglify:compile'])
     grunt.registerTask('default', ['compile','concurrent'])
 }
