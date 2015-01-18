@@ -1,4 +1,5 @@
 head
+	title GottaDo
 	link(rel='stylesheet', href='/css/app.min.css')
 	link(rel='stylesheet', href='/css/pikaday.css')
 body
@@ -11,16 +12,16 @@ body
 			.logout 
 				.inner Logout
 		.logo 
-			.inner GottaDo
+			.inner#lo
 	form.newHolder#f
 		.newTop
 			input(placeholder='Task')#task
 		input(placeholder='Due')#datepicker.daySelect
 		#goButton
 	.todos
-		each i in user.todos
-			.todo= i.name
 	.hidden #{user.facebookId}
+
+script(type='text/javascript') var data = !{JSON.stringify(user)}
 
 script(type='text/javascript' src='https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js')
 script(type='text/javascript' src='/js/moment.js')

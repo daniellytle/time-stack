@@ -15,8 +15,6 @@ var port = process.env.PORT || 8080;
 
 var valid = false;
 
-var user =  {pic: 'lkj', name: "dan"};
-
 console.log("listening on 8080");
 
 var mongoose = require('mongoose');
@@ -30,7 +28,7 @@ var todoSchema = new Schema({
   name: String,
   todos: [{
   	name: String,
-  	dueDate: Date	
+  	dueDate: String	
   }]
 });
 
@@ -50,6 +48,7 @@ passport.deserializeUser(function(obj, done) {
 });
 
 passport.use(new FacebookStrategy({
+      authType: 'reauthenticate',
 	    clientID: 576135949186286,
 	    clientSecret: "8a64a0fa23ef2c44b6c7803fc5ebee28",
 	    callbackURL: "http://localhost:8080/auth/facebook/callback",
@@ -71,7 +70,7 @@ passport.use(new FacebookStrategy({
                 	  facebookId : profile.id,
                     name: profile.displayName,
                     pic: profile.photos[0].value,
-                    todos:[{name:'Fix the app', date: new Date()}]
+                    todos:[]
                 });
                 user.save(function(err) {
                     if (err) console.log(err);
@@ -107,8 +106,8 @@ app.get('/auth/facebook/callback',
   function(req, res) {
     // Successful authentication, redirect home.
     console.log("fb Callback");
-    res.redirect('/');
     valid = true;
+    res.redirect('/');
   });
 
 app.get('/login', function(req, res) {
@@ -123,7 +122,6 @@ app.get('/logout', function(req, res){
 
 //New Todo
 app.post('/api', function(req, res) {
-  console.log(req);
 	User.findOneAndUpdate({facebookId: req.body.fbid},
 		{$push: {todos: req.body.todo}},
     {safe: true, upsert: true},

@@ -2,20 +2,52 @@
 
 console.log('app.js');
 
-if (window.location.hash && window.location.hash == '#_=_')
-   		history.replaceState('/',{},{});
+if ( (location.hash == "#_=_" || location.href.slice(-1) == "#_=_") ) {
+    removeHash();
+}
+
+function removeHash() {
+    var scrollV, scrollH, loc = window.location;
+    if ('replaceState' in history) {
+        history.replaceState('', document.title, loc.pathname + loc.search);
+    } else {
+        // Prevent scrolling by storing the page's current scroll offset
+        scrollV = document.body.scrollTop;
+        scrollH = document.body.scrollLeft;
+
+        loc.hash = '';
+
+        // Restore the scroll offset, should be flicker free
+        document.body.scrollTop = scrollV;
+        document.body.scrollLeft = scrollH;
+    }
+}
+
 
 var picker = new Pikaday(
     {
         field: document.getElementById('datepicker'),
         minDate: new Date(),
-        yearRange: [2000,2020],
-        format: 'MMM DD'
-        // onSelect: function() {
-        //     var date = document.createTextNode(this.getMoment().format('M-DD') + ' ');
-        //     document.getElementById('selected').appendChild(date);
-        // }
+        format: 'MMM DD',
+        yearRange:[new Date().getFullYear(),2020],
+        onSelect: function() {
+            var date = document.createTextNode(this.getMoment().format('Do MMMM YYYY') + ' ');
+            document.getElementById('selected').appendChild(date);
+        }
     });
+
+//Inital Load
+console.log(data);
+var oneDay = 24*60*60*1000;
+var date = new Date();
+for (var i = data.todos.length - 1; i >= 0; i--) {
+	 var task = "<div class='todo'>"+ data.todos[i].name +"</div>";
+	 var diff =  Math.round(Math.abs((date.getTime() - new Date(data.todos[i].dueDate).getTime())/(oneDay)));
+	 console.log(diff);
+	 if(diff < 3)
+	 	$(task).addClass('urgent');
+	$(task).appendTo('.todos').fadeIn('slow');
+};
 
 //Enter Click
 $('body').keydown(function (e){
@@ -46,9 +78,12 @@ $('#goButton').click(function() {
 			name: $('#task').val(),
 			dueDate: $('#datepicker').val()
 		}
-	},function() {
-		console.log('suc')
-			$('.todo').removeClass('maybe');
+	},function(err) {
+		if(err)
+		console.log(err);
+		else
+			console.log('suc')
+		$('.todo').removeClass('maybe');
 	});
 
 })
