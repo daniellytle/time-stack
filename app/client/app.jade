@@ -18,9 +18,12 @@ body
 	form.newHolder#f
 		.newTop
 			input(placeholder='Task')#task
-		input(placeholder='Due')#datepicker.daySelect
+		#dateHolder
+			input#datepicker
 		#goButton
-	.todos
+			#goImg
+	.todH
+		.todos
 	.hidden #{user.facebookId}
 
 script(type='text/javascript') var data = !{JSON.stringify(user)}

@@ -1,7 +1,8 @@
 lightred = #FF8484
 lightg = #F4F4F4
 actgreen = #75E375
-lightgreen = rgb(101, 204, 101)
+lightgreen = #2ECC71
+mild = #FFFF5B
 
 body
 	padding 0
@@ -89,7 +90,7 @@ a
 	height:100%;
 
 .logo {
-	position absolute
+	position fixed
 	left 0px
 	top 15px
 	bottom 0
@@ -110,6 +111,7 @@ a
 	margin-bottom 40px
 	border-radius 5px
 	margin-top 15px
+	border 1px solid
 }
 
 .newTop {
@@ -117,7 +119,6 @@ a
 	margin-right: 200px
 	border-right 1px solid lightg 
 	font-family 'Open Sans'
-	border 1px solid #B6B6B6
 	border-right none
 	border-radius 5px 0 0 5px
 }
@@ -135,7 +136,7 @@ input {
 	font-weight: 700;
 }
 
-.daySelect {
+#dateHolder
 	position: absolute;
 	top: 0;
 	bottom: 0;
@@ -143,18 +144,17 @@ input {
 	background: white;
 	width: 100px;
 	cursor pointer
-	padding:5px;
-}
-
-#datepicker
-	text-align center
-	font-weight 700
-	color #404040
-	font-size 17px
-	background #E9E9E9
+	padding:5px 0;
 	
 
-#goButton {
+#datepicker
+	background url("http://daniellytle.github.io/Images/cal.png") center no-repeat
+	background-size contain
+	height 100%
+	color transparent
+	cursor pointer
+
+#goButton 
 	cursor pointer
 	font-size:100%;
 	width 100px
@@ -166,7 +166,12 @@ input {
 	border-radius 0 5px 5px 0
 	position: absolute;
 	color white
-}
+	padding 7px 0
+
+#goImg
+	height 100%
+	background url("http://daniellytle.github.io/Images/add.png") center no-repeat
+	background-size contain
 
 #goButton:hover {
 	background actgreen
@@ -198,19 +203,65 @@ input {
 	color white
 }
 
-.todos {
+.todH
 	width:80%;
 	margin 0 auto
 	max-width 1100px
-}
+	display table
+	
+.todos 
+	-webkit-column-count: 3;
+	-webkit-column-gap: 10px;
+	-webkit-column-fill: auto;
+	-moz-column-count: 3;
+	-moz-column-gap: 10px;
+	-moz-column-fill: auto;
+	column-count: 3;
+	column-gap: 15px;
+	column-fill: auto;
 
-.todo {
-	width 700px;
+.tOut
+	width 90%
+	position relative
+	display: inline-block;
+	-webkit-column-break-inside: avoid;
+	-moz-column-break-inside: avoid;
+	column-break-inside: avoid;
+	padding-bottom: 5px;
+	background: -webkit-linear-gradient(45deg, #FFF, #F9F9F9);
+	opacity: 1;
+	
+	-webkit-transition: all .2s ease;
+	-moz-transition: all .2s ease;
+	-o-transition: all .2s ease;
+	transition: all .2s ease;
 	padding: 10px;
 	margin:0 auto 20px auto
-	border: 1px solid #777
-	background lightg
+	border-bottom: 4px solid #e1e1e1
+	background #EDEDED
+	
+	
+.done 
+	position absolute
+	top 0
+	right 0
+	left 0
+	bottom 0
+	background lightgreen
+	opacity 0
+	cursor pointer
+	padding:5px
+
+.done:hover
+	opacity .7
+	
+.check
+	background 
+
+.todo {
+
 	transition .5s ease
+	word-wrap break-word
 }
 
 .hidden
@@ -226,7 +277,12 @@ input {
 	border-color lightred
 
 .mild
-	border-color yellow
+	border-color mild
 
 .fine
 	border-color lightgreen
+
+.status
+	width 40px
+	height 100%
+	background red

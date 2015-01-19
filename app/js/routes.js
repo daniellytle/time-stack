@@ -105,11 +105,12 @@ module.exports = function(passport, FacebookStrategy, app) {
 
 	//New Todo
 	app.post('/api', function(req, res) {
+		console.log('post');
 		User.findOneAndUpdate({facebookId: req.body.fbid},
 			{$push: {todos: req.body.todo}},
 	    {safe: true, upsert: true},
 	    function(err,model) {
-	      console.log("hey");
+	      console.log(err);
 	      currentUser.todos.push(req.body.todo);
 	    })
 
@@ -118,6 +119,10 @@ module.exports = function(passport, FacebookStrategy, app) {
 
 	app.get('/api', function(req, res) {
 	  console.log(req.body.id);
+	})
+
+	app.delete('/api', function(req, res) {
+		console.log(req);
 	})
 
 }

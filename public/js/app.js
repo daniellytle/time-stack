@@ -38,16 +38,21 @@ var picker = new Pikaday(
     });
 
 //Inital Load
-console.log(data);
+data.todos.sort(function(a,b) {return a.dueDate < b.dueDate});
+
 var oneDay = 24*60*60*1000;
 var date = new Date();
 for (var i = data.todos.length - 1; i >= 0; i--) {
-	 var task = "<div class='todo'>"+ data.todos[i].name +"</div>";
-	 var diff =  Math.round(Math.abs((date.getTime() - new Date(data.todos[i].dueDate).getTime())/(oneDay)));
-	 console.log(diff);
-	 if(diff < 3)
-	 	$(task).addClass('urgent');
-	$(task).appendTo('.todos').fadeIn('slow');
+	 var task = $("<div class='tOut'><div class='todo'>"+ data.todos[i].name +"</div><div class='status'></div></div>");
+	 
+	 if(data.todos[i].dueDate < "Jan 21") {
+	 	task.children().addClass('urgent');
+	 } else if(data.todos[i].dueDate < "Jan 23") {
+	 	task.children().addClass('mild');
+	 } else 
+	 	task.children().addClass('fine');
+
+	task.appendTo('.todos').fadeIn('slow');
 };
 
 //Enter Click
@@ -70,8 +75,15 @@ $('#goButton').click(function() {
 		return;
 	}
 
- 	var task = "<div class='maybe todo'>"+ $('#task').val() +"</div>";
-	$(task).appendTo('.todos').fadeIn('slow');
+ 	var task = $("<div class='tOut'><div class='maybe todo'>"+ $('#task').val() +"</div><div class='status'></div></div>");
+	task.appendTo('.todos').fadeIn('slow');
+
+	if(data.todos[i].dueDate < "Jan 21") {
+	 	task.children().addClass('urgent');
+	 } else if(data.todos[i].dueDate < "Jan 23") {
+	 	task.children().addClass('mild');
+	 } else 
+	 	task.children().addClass('fine');
 
 	data.todos.push( {
 		name: $('#task').val(),
@@ -84,12 +96,12 @@ $('#goButton').click(function() {
 			name: $('#task').val(),
 			dueDate: $('#datepicker').val()
 		}
-	},function(err) {
+	},function(err, success) {
 		if(err)
 		console.log(err);
 		else
 			console.log('suc')
-		$('.todo').removeClass('maybe');
+		task.children().removeClass('maybe');
 	});
 
 })

@@ -32,7 +32,9 @@ var picker = new Pikaday(
         yearRange:[new Date().getFullYear(),2020],
         onSelect: function() {
             var date = document.createTextNode(this.getMoment().format('Do MMMM YYYY') + ' ');
-            document.getElementById('selected').appendChild(date);
+            //$('selected').appendChild(date);
+            console.log(date);
+            console.log($("selected"))
         }
     });
 
@@ -42,12 +44,15 @@ data.todos.sort(function(a,b) {return a.dueDate < b.dueDate});
 var oneDay = 24*60*60*1000;
 var date = new Date();
 for (var i = data.todos.length - 1; i >= 0; i--) {
-	 var task = $("<div class='todo'>"+ data.todos[i].name +"</div>");
+	 var task = $("<div class='tOut'><div class='todo'>"+ data.todos[i].name +"</div><div class='status'></div><div class='done'><div class='check'></div></div></div>");
 	 
 	 if(data.todos[i].dueDate < "Jan 21") {
-	 	console.log("urg");
-	 	task.addClass('urgent');
-	 }
+	 	task.children().addClass('urgent');
+	 } else if(data.todos[i].dueDate < "Jan 23") {
+	 	task.children().addClass('mild');
+	 } else 
+	 	task.children().addClass('fine');
+
 	task.appendTo('.todos').fadeIn('slow');
 };
 
@@ -71,8 +76,17 @@ $('#goButton').click(function() {
 		return;
 	}
 
- 	var task = "<div class='maybe todo'>"+ $('#task').val() +"</div>";
-	$(task).appendTo('.todos').fadeIn('slow');
+	var d = $('#datepicker').val();
+
+ 	var task = $("<div class='tOut'><div class='maybe todo'>"+ $('#task').val() +"</div><div class='status'></div><div class='done'></div></div>");
+	task.appendTo('.todos').fadeIn('slow');
+
+	if(d < "Jan 21") {
+	 	task.children().addClass('urgent');
+	 } else if(d < "Jan 23") {
+	 	task.children().addClass('mild');
+	 } else 
+	 	task.children().addClass('fine');
 
 	data.todos.push( {
 		name: $('#task').val(),
@@ -85,13 +99,26 @@ $('#goButton').click(function() {
 			name: $('#task').val(),
 			dueDate: $('#datepicker').val()
 		}
-	},function(err) {
+	},function(err, success) {
 		if(err)
 		console.log(err);
 		else
 			console.log('suc')
-		$('.todo').removeClass('maybe');
+		task.children().removeClass('maybe');
 	});
+})
 
+$('.done').click(function() {
+	console.log("Clicked Done");
+	$.ajax({
+	    url: '/api' + '?' + $.param({"fbid": data.fbid, "tid" :data.todo}),
+	    type: 'DELETE',
+	    success : function() {
+	    	console.log("success");
+	    },
+	    error: function() {
+	    	console.log("no dice");
+	    }
+	});
 })
 
