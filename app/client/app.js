@@ -155,7 +155,7 @@ $('.tOut').click(function() {
 	    	obj.fadeOut(200);
 	    },
 	    error: function(err) {
-	    	console.log("err");
+	    	obj.addClass('maybe');
 	    }
 	});
 
