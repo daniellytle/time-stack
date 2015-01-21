@@ -14,7 +14,8 @@ module.exports = function(passport, FacebookStrategy, app) {
 	  name: String,
 	  todos: [{
 	  	name: String,
-	  	dueDate: String	
+	  	dueDate: String,
+	  	createDate: String
 	  }]
 	});
 
@@ -65,7 +66,7 @@ module.exports = function(passport, FacebookStrategy, app) {
 	                    return done(err, user);
 	                });
 	            } else {
-	                console.log("found user")
+	                console.log("found user");
 	                console.log(user);
 	                currentUser = user;
 	                return done(err, user);
@@ -119,10 +120,22 @@ module.exports = function(passport, FacebookStrategy, app) {
 
 	app.get('/api', function(req, res) {
 	  console.log(req.body.id);
-	})
+	});
 
 	app.delete('/api', function(req, res) {
-		console.log(req);
-	})
-
+		console.log("got delete");
+		console.log(req.query);
+		User.update(
+		  { facebookId: req.query.FbId },
+		  { $pull: { todos : { _id: req.query.Id } } }
+		, function(err, success) {
+			if (err)
+				console.log(err);
+			else {
+				console.log('good');
+				res.contentType('json');
+				res.send({status: 'goog'});
+			}
+		});
+	});
 }

@@ -28,7 +28,7 @@ var picker = new Pikaday(
     {
         field: document.getElementById('datepicker'),
         minDate: new Date(),
-        format: 'MMM DD',
+        // format: 'MMM DD',
         yearRange:[new Date().getFullYear(),2020],
         onSelect: function() {
             var date = document.createTextNode(this.getMoment().format('Do MMMM YYYY') + ' ');
@@ -41,17 +41,23 @@ var picker = new Pikaday(
 //Inital Load
 data.todos.sort(function(a,b) {return a.dueDate < b.dueDate});
 
-var oneDay = 24*60*60*1000;
-var date = new Date();
 for (var i = data.todos.length - 1; i >= 0; i--) {
-	 var task = $("<div class='tOut'><div class='todo'>"+ data.todos[i].name +"</div><div class='status'></div><div class='done'><div class='check'></div></div></div>");
+	 var create = moment(data.todos[i].createDate);
+	 var due 	= moment(data.todos[i].dueDate,"YYYY-MM-DD");
+	 var today 	= moment();
+
+	 var diff = due.diff(create, 'days');
+	 var task = $("<div class='tOut'><div class='todo'>"+ data.todos[i].name +"</div><div class='status'>"+ diff +"d</div></div>");
 	 
-	 if(data.todos[i].dueDate < "Jan 21") {
-	 	task.children().addClass('urgent');
-	 } else if(data.todos[i].dueDate < "Jan 23") {
-	 	task.children().addClass('mild');
+
+	 console.log(diff);
+
+	 if(diff < 2) {
+	 	task.addClass('urgent');
+	 } else if(diff < 4) {
+	 	task.addClass('mild');
 	 } else 
-	 	task.children().addClass('fine');
+	 	task.addClass('fine');
 
 	task.appendTo('.todos').fadeIn('slow');
 };
@@ -67,26 +73,34 @@ $('body').keydown(function (e){
 $('#goButton').click(function() {
 	//check empty
 	if($('#task').val() == "") {
-		$('#newTop').focus();
+		$('.newTop').addClass('empty');
 		return;
 	}
 
 	if($('#datepicker').val() == "") {
-		$('#datepicker').focus();
+		$('#dateHolder').addClass('empty');
 		return;
 	}
+	 var create = moment();
+	 var due 	= moment($('#datepicker').val());
+
+	console.log(create, due);
+
+	 var diff = due.diff(create, 'days');
 
 	var d = $('#datepicker').val();
 
- 	var task = $("<div class='tOut'><div class='maybe todo'>"+ $('#task').val() +"</div><div class='status'></div><div class='done'></div></div>");
-	task.appendTo('.todos').fadeIn('slow');
+ 	var task = $("<div class='tOut'><div class='maybe todo'>"+ $('#task').val() +"</div><div class='status'>"+ diff +"d</div></div>");
 
-	if(d < "Jan 21") {
-	 	task.children().addClass('urgent');
-	 } else if(d < "Jan 23") {
-	 	task.children().addClass('mild');
+
+	if(diff < 2) {
+	 	task.addClass('urgent');
+	 } else if(diff < 4) {
+	 	task.addClass('mild');
 	 } else 
-	 	task.children().addClass('fine');
+	 	task.addClass('fine');
+
+	task.appendTo('.todos').fadeIn('slow');
 
 	data.todos.push( {
 		name: $('#task').val(),
@@ -97,7 +111,8 @@ $('#goButton').click(function() {
 		fbid 	: $('.hidden').text(),
 		todo: {
 			name: $('#task').val(),
-			dueDate: $('#datepicker').val()
+			dueDate: $('#datepicker').val(),
+			createDate: moment()._d
 		}
 	},function(err, success) {
 		if(err)
@@ -108,17 +123,40 @@ $('#goButton').click(function() {
 	});
 })
 
-$('.done').click(function() {
-	console.log("Clicked Done");
-	$.ajax({
-	    url: '/api' + '?' + $.param({"fbid": data.fbid, "tid" :data.todo}),
-	    type: 'DELETE',
-	    success : function() {
-	    	console.log("success");
-	    },
-	    error: function() {
-	    	console.log("no dice");
-	    }
-	});
+$('.tOut').hover(function() {
+	$(this).css({'margin-left':'10px'});
+}, function() {
+	$(this).css({'margin-left':'0px'});
 })
 
+$('.newTop').click(function() {
+	$('#task').focus();
+});
+
+$('.tOut').click(function() {
+	//find which task
+	var i = 0;
+	for (i = data.todos.length - 1; i >= 0; i--) {
+		if(data.todos[i].name == $(this).children('.todo').text())
+			break;
+	};
+
+	var Id = data.todos[i]._id;
+	var FbId = data.facebookId;
+
+	var obj = $(this);
+
+	//delete the task
+	$.ajax({
+	    url: '/api' + '?' + $.param({"Id": Id, "FbId" : FbId}),
+	    type: 'DELETE',
+	    success: function() {
+	    	console.log("good");
+	    	obj.fadeOut(200);
+	    },
+	    error: function(err) {
+	    	console.log("err");
+	    }
+	});
+
+})

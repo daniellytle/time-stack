@@ -3,11 +3,13 @@ lightg = #F4F4F4
 actgreen = #75E375
 lightgreen = #2ECC71
 mild = #FFFF5B
+warnred = #FFDBDB
 
 body
 	padding 0
 	margin 0
 	font-family 'Open Sans'	
+	overflow-x hidden
 	
 a 
 	color inherit
@@ -18,12 +20,22 @@ a
 	
 .header
 	display table
-	height 650px
+	height 100vh
 	width 100%
 	background lightred
 	color white
 	position relative
 	
+.sub
+	font-family 'Open Sans'
+	text-align center
+	font-weight 300
+	font-size 50px
+	color white
+	position absolute
+	bottom 25px
+	width 100%
+
 .top
 	top 10px
 	text-align middle
@@ -36,13 +48,9 @@ a
 	text-align center
 	
 .title
-	font-size 90px
+	font-size 111px
 	line-height 121px
 	font-family 'Pacifico'
-	
-.sub
-	text-align center
-	font-size 16px
 	
 .begin
 	padding 9px 27px
@@ -109,9 +117,7 @@ a
 	background lightg
 	position relative
 	margin-bottom 40px
-	border-radius 5px
 	margin-top 15px
-	border 1px solid
 }
 
 .newTop {
@@ -121,6 +127,8 @@ a
 	font-family 'Open Sans'
 	border-right none
 	border-radius 5px 0 0 5px
+	border-bottom 4px solid #e1e1e1
+
 }
 	
 input {
@@ -145,6 +153,7 @@ input {
 	width: 100px;
 	cursor pointer
 	padding:5px 0;
+	border-bottom 4px solid #f1f1f1
 	
 
 #datepicker
@@ -163,15 +172,20 @@ input {
 	right: 0;
 	text-align center
 	background: lightgreen;
-	border-radius 0 5px 5px 0
 	position: absolute;
 	color white
 	padding 7px 0
+	border-bottom 4px solid #29B363
+	border-radius 0 5px 5px 0
+	transition .2s ease
+
 
 #goImg
 	height 100%
-	background url("http://daniellytle.github.io/Images/add.png") center no-repeat
-	background-size contain
+	text-align center
+	font-size 31px
+	line-height 31px
+	font-weight 700
 
 #goButton:hover {
 	background actgreen
@@ -204,65 +218,52 @@ input {
 }
 
 .todH
-	width:80%;
+	width:70%;
 	margin 0 auto
 	max-width 1100px
 	display table
 	
+.check
+	position: absolute;
+	top: 0;
+	left: 100%;
+	width: 100px;
+	height: 43px;
+	text-align center
+	background lightgreen
+	
 .todos 
 	-webkit-column-count: 3;
-	-webkit-column-gap: 10px;
 	-webkit-column-fill: auto;
 	-moz-column-count: 3;
-	-moz-column-gap: 10px;
 	-moz-column-fill: auto;
 	column-count: 3;
-	column-gap: 15px;
 	column-fill: auto;
 
 .tOut
 	width 90%
-	position relative
+	float left
 	display: inline-block;
+	border-radius 2px
 	-webkit-column-break-inside: avoid;
 	-moz-column-break-inside: avoid;
 	column-break-inside: avoid;
-	padding-bottom: 5px;
 	background: -webkit-linear-gradient(45deg, #FFF, #F9F9F9);
-	opacity: 1;
-	
+	position relative
 	-webkit-transition: all .2s ease;
 	-moz-transition: all .2s ease;
 	-o-transition: all .2s ease;
 	transition: all .2s ease;
-	padding: 10px;
 	margin:0 auto 20px auto
 	border-bottom: 4px solid #e1e1e1
 	background #EDEDED
-	
-	
-.done 
-	position absolute
-	top 0
-	right 0
-	left 0
-	bottom 0
-	background lightgreen
-	opacity 0
 	cursor pointer
-	padding:5px
 
-.done:hover
-	opacity .7
-	
-.check
-	background 
-
-.todo {
-
+.todo 
 	transition .5s ease
 	word-wrap break-word
-}
+	font-weight 700
+	margin 10px
 
 .hidden
 	background red
@@ -274,15 +275,32 @@ input {
 	border-color:#e1e1e1
 	
 .urgent
-	border-color lightred
+	border-color: #D26E6E;
+	background: #ff8484;
+	color: white;
 
 .mild
-	border-color mild
+	border-color: #DFDF67;
+	background: #FFFF6A;
+	color: #777;
 
 .fine
-	border-color lightgreen
+	border-color: #27B262;
+	background: rgb(46, 204, 113);
+	color: white;
 
 .status
 	width 40px
-	height 100%
-	background red
+	position: absolute;
+	right: 0;
+	top: 0;
+	padding 10px
+	text-align center
+	font-weight 700
+	
+	
+.empty 
+	background warnred
+	
+.bump
+	margin-left 20px;
