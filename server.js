@@ -19,15 +19,15 @@ mongoose.connect(configDB.url);
   app.use(passport.initialize());
   app.use(passport.session());
 
-
-  require('./config/passport')(passport);
-  require('./app/js/routes.js')(app, passport);
-
   // Initial setup
   app.use(bodyParser());       // to support JSON-encoded bodies
   app.use(bodyParser.urlencoded({     // to support URL-encoded bodies
     extended: true
   }));
+
+  require('./config/passport')(passport);
+  require('./app/js/routes.js')(app, passport);
+
 
   // Expose static assets
   app.use(express.static(__dirname + '/public'));

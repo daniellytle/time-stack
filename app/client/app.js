@@ -48,7 +48,7 @@ for (var i = data.todos.length - 1; i >= 0; i--) {
 
 	 var diff = due.diff(create, 'days');
 	 var task = $("<div class='tOut'><div class='todo'>"+ data.todos[i].name +"</div><div class='status'>"+ diff +"d</div></div>");
-	 
+
 
 	 console.log(diff);
 
@@ -56,7 +56,7 @@ for (var i = data.todos.length - 1; i >= 0; i--) {
 	 	task.addClass('urgent');
 	 } else if(diff < 4) {
 	 	task.addClass('mild');
-	 } else 
+	 } else
 	 	task.addClass('fine');
 
 	task.appendTo('.todos').fadeIn('slow');
@@ -97,7 +97,7 @@ $('#goButton').click(function() {
 	 	task.addClass('urgent');
 	 } else if(diff < 4) {
 	 	task.addClass('mild');
-	 } else 
+	 } else
 	 	task.addClass('fine');
 
 	task.appendTo('.todos').fadeIn('slow');
@@ -108,7 +108,7 @@ $('#goButton').click(function() {
 	})
 
 	$.post("/api",{
-		fbid 	: $('.hidden').text(),
+		Fbid 	: data.facebookId,
 		todo: {
 			name: $('#task').val(),
 			dueDate: $('#datepicker').val(),
@@ -121,12 +121,6 @@ $('#goButton').click(function() {
 			console.log('suc')
 		task.children().removeClass('maybe');
 	});
-})
-
-$('.tOut').hover(function() {
-	$(this).css({'margin-left':'10px'});
-}, function() {
-	$(this).css({'margin-left':'0px'});
 })
 
 $('.newTop').click(function() {
@@ -160,5 +154,3 @@ $('.tOut').click(function() {
 	});
 
 });
-
-

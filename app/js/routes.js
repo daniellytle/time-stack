@@ -1,6 +1,8 @@
 
 module.exports = function(app, passport) {
 
+	var User = require('../models/user');
+
 	//initial landing
 	app.get('/', isLoggedIn, function(req, res) {
 		console.log(req.user);
@@ -24,11 +26,12 @@ module.exports = function(app, passport) {
 	//New Todo
 	app.post('/api', function(req, res) {
 		console.log('post');
-		User.findOneAndUpdate({facebookId: req.body.fbid},
+		User.findOneAndUpdate({facebookId: req.body.Fbid},
 			{$push: {todos: req.body.todo}},
 	    {safe: true, upsert: true},
 	    function(err,model) {
 	      console.log(err);
+				res.send(200);
 	    })
 	});
 
@@ -46,7 +49,7 @@ module.exports = function(app, passport) {
 			if (err)
 				console.log(err);
 			else {
-
+				res.send(200);
 			}
 		});
 	});
