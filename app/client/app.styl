@@ -1,4 +1,4 @@
-lightred = #FF8484
+lightred = rgb(243, 113, 106)
 lightg = #F4F4F4
 actgreen = #75E375
 lightgreen = #2ECC71
@@ -8,24 +8,23 @@ warnred = #FFDBDB
 body
 	padding 0
 	margin 0
-	font-family 'Open Sans'	
+	font-family 'Open Sans'
 	overflow-x hidden
-	
-a 
+
+a
 	color inherit
-	
+
 .inner
 	display table-cell
 	vertical-align middle
-	
+
 .header
 	display table
 	height 100vh
 	width 100%
-	background lightred
-	color white
+	color lightred
 	position relative
-	
+
 .sub
 	font-family 'Open Sans'
 	text-align center
@@ -36,22 +35,46 @@ a
 	bottom 25px
 	width 100%
 
+.holdNav
+	width 40%
+	position absolute
+	padding 8px
+	left 30%
+	right 30%
+
+#topNav
+	border-bottom 1px solid lightred
+	top 15px
+
+#bottomNav
+	border-top 1px solid lightred
+	bottom 15px
+
+.nav
+	width 25%
+	text-align center
+	color lightred
+	font-weight 700
+	font-size 17px
+	float left
+
 .top
 	top 10px
 	text-align middle
 	width 100%
 	position absolute
-	
+
 .titleHolder
 	display table-cell
 	vertical-align middle
 	text-align center
-	
+
 .title
-	font-size 111px
-	line-height 121px
-	font-family 'Pacifico'
-	
+	height 150px
+	background url('/img/Logo.png') center no-repeat;
+	background-size contain
+
+
 .begin
 	padding 9px 27px
 	border-radius 2px
@@ -59,22 +82,22 @@ a
 	font-family 'Open Sans'
 	text-transform uppercase
 	display inline-block
-	cursor pointer
-	border 1px solid white
-	
-	
-.begin:hover {
 	color lightred
-	background white
-}
+	cursor pointer
+	border 1px solid lightred
 
-// APP
+
+.begin:hover {
+	color white
+	background lightred
+}
 
 .topBar {
 	height 44px
 	background white
 	color lightred
 	margin-bottom 20px
+	font-weight 700
 	position fixed
 	right 0px
 }
@@ -87,13 +110,13 @@ a
 }
 
 #lo {
-	background: url("http://daniellytle.github.io/Images/GottaDoLogo.png") center no-repeat;
+	background: url("/img/Logo.png") center no-repeat;
 	height: 100%;
 	width: 100px;
 	background-size: contain;
 }
 
-.pic 
+.pic
 	padding:5px;
 	height:100%;
 
@@ -110,7 +133,7 @@ a
 	font-weight 700
 	display table
 }
-	
+
 .newHolder {
 	width 700px
 	margin 0 auto
@@ -123,19 +146,19 @@ a
 .newTop {
 	padding:11px 20px
 	margin-right: 200px
-	border-right 1px solid lightg 
+	border-right 1px solid lightg
 	font-family 'Open Sans'
 	border-right none
 	border-radius 5px 0 0 5px
 	border-bottom 4px solid #e1e1e1
 
 }
-	
+
 input {
-	width 100% 
-	border none 
-	background transparent 
-	outline none 
+	width 100%
+	border none
+	background transparent
+	outline none
 	font-size 17px
 }
 
@@ -154,7 +177,7 @@ input {
 	cursor pointer
 	padding:5px 0;
 	border-bottom 4px solid #f1f1f1
-	
+
 
 #datepicker
 	background url("http://daniellytle.github.io/Images/cal.png") center no-repeat
@@ -163,7 +186,7 @@ input {
 	color transparent
 	cursor pointer
 
-#goButton 
+#goButton
 	cursor pointer
 	font-size:100%;
 	width 100px
@@ -195,7 +218,6 @@ input {
 	float right
 	display table
 	height 100%
-	font-weight 500
 	margin-right 20px
 	color: #777
 }
@@ -204,7 +226,6 @@ input {
 	float right
 	display table
 	height 100%
-	font-weight 500
 	margin-right 20px
 	border: 1px solid;
 	border-radius: 3px;
@@ -222,7 +243,7 @@ input {
 	margin 0 auto
 	max-width 1100px
 	display table
-	
+
 .check
 	position: absolute;
 	top: 0;
@@ -231,8 +252,8 @@ input {
 	height: 43px;
 	text-align center
 	background lightgreen
-	
-.todos 
+
+.todos
 	-webkit-column-count: 3;
 	-webkit-column-fill: auto;
 	-moz-column-count: 3;
@@ -259,7 +280,7 @@ input {
 	background #EDEDED
 	cursor pointer
 
-.todo 
+.todo
 	transition .5s ease
 	word-wrap break-word
 	font-weight 700
@@ -269,11 +290,11 @@ input {
 	background red
 	display none
 
-	
+
 .maybe
 	color #e1e1e1
 	border-color:#e1e1e1
-	
+
 .urgent
 	border-color: #D26E6E;
 	background: #ff8484;
@@ -297,10 +318,10 @@ input {
 	padding 10px
 	text-align center
 	font-weight 700
-	
-	
-.empty 
+
+
+.empty
 	background warnred
-	
+
 .bump
 	margin-left 20px;

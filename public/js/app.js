@@ -130,6 +130,10 @@ $('.tOut').hover(function() {
 	$(this).css({'margin-left':'0px'});
 })
 
+$('.newTop').click(function() {
+	$('#task').focus();
+});
+
 $('.tOut').click(function() {
 	//find which task
 	var i = 0;
@@ -141,18 +145,23 @@ $('.tOut').click(function() {
 	var Id = data.todos[i]._id;
 	var FbId = data.facebookId;
 
+	var obj = $(this);
+
 	//delete the task
 	$.ajax({
 	    url: '/api' + '?' + $.param({"Id": Id, "FbId" : FbId}),
 	    type: 'DELETE',
 	    success: function() {
-	    	$(this).fadeOut(200);
+	    	console.log("good");
+	    	obj.fadeOut(200);
 	    },
 	    error: function(err) {
-	    	console.log(err);
+	    	obj.addClass('maybe');
 	    }
 	});
 
-})
+});
+
+
 
 },{}]},{},[1]);
