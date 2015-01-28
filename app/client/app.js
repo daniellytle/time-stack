@@ -32,9 +32,8 @@ var picker = new Pikaday(
         yearRange:[new Date().getFullYear(),2020],
         onSelect: function() {
             var date = document.createTextNode(this.getMoment().format('Do MMMM YYYY') + ' ');
-            //$('selected').appendChild(date);
-            console.log(date);
-            console.log($("selected"))
+            $('selected').appendChild(date);
+
         }
     });
 
@@ -81,6 +80,10 @@ $('#goButton').click(function() {
 		$('#dateHolder').addClass('empty');
 		return;
 	}
+
+  $('#task').text("");
+  $('#datepicker').text("");
+
 	 var create = moment();
 	 var due 	= moment($('#datepicker').val());
 
