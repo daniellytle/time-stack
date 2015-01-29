@@ -23,9 +23,6 @@ module.exports = function(passport) {
         });
     });
 
-    // code for login (use('local-login', new LocalStategy))
-    // code for signup (use('local-signup', new LocalStategy))
-
     // =========================================================================
     // FACEBOOK ================================================================
     // =========================================================================
@@ -46,6 +43,7 @@ module.exports = function(passport) {
 
             // find the user in the database based on their facebook id
             User.findOne({ 'facebookId' : profile.id }, function(err, user) {
+                console.log('proooooofile');
                 console.log(profile);
                 // if there is an error, stop everything and return that
                 // ie an error connecting to the database
@@ -53,7 +51,6 @@ module.exports = function(passport) {
                   console.log(err);
                   return done(err);
                 }
-
 
                 // if the user is found, then log them in
                 if (user) {
@@ -65,10 +62,10 @@ module.exports = function(passport) {
 
                     // set all of the facebook information in our user model
                     newUser.facebookId    = profile.id; // set the users facebook id
-                    newUser.name = profile.displayName; // we will save the token that facebook provides to the user
-                    newUser.pic  = profile.photos[0].value;
-                    newUser.email = profile.emails[0].value; // facebook can return multiple emails so we'll take the first
-                    newUser.token = token; // save the token.
+                    newUser.name          = profile.displayName; // we will save the token that facebook provides to the user
+                    newUser.pic           = 'http://graph.facebook.com/' + profile.id + '/picture';
+                    newUser.email         = profile.emails[0].value; // facebook can return multiple emails so we'll take the first
+                    newUser.token         = token; // save the token.
 
                     // save our user to the database
                     newUser.save(function(err) {

@@ -55,8 +55,8 @@ module.exports = function(app, passport) {
 	// FACEBOOK ROUTES ====================================
 
 	app.get('/auth/facebook', passport.authenticate('facebook', {
-			profileFields: ['id','photos', 'emails', 'username', 'displayName', 'about', 'gender'],
-			scope : ['email']
+		scope : ['public_profile', 'email'],
+		profileFields : ['id', 'displayName', 'emails','photos', 'picture']
 		}));
 
 		// handle the callback after facebook has authenticated the user
