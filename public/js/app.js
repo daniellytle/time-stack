@@ -33,7 +33,7 @@ var picker = new Pikaday(
         yearRange:[new Date().getFullYear(),2020],
         onSelect: function() {
             var date = document.createTextNode(this.getMoment().format('Do MMMM YYYY') + ' ');
-            $('selected').appendChild(date);
+            // $('selected').appendChild(date);
 
         }
     });
@@ -106,10 +106,10 @@ $('#goButton').click(function() {
 
 	task.appendTo('.todos').fadeIn('slow');
 
-	data.todos.push( {
+  var newTask = {
 		name: $('#task').val(),
 		dueDate: $('#datepicker').val()
-	})
+	};
 
 	$.post("/api",{
 		Fbid 	: data.facebookId,
@@ -118,12 +118,15 @@ $('#goButton').click(function() {
 			dueDate: $('#datepicker').val(),
 			createDate: moment()._d
 		}
-	},function(err, success) {
+	},function(success, err) {
 		if(err)
 		console.log(err);
 		else
-			console.log('suc')
+			console.log(success);
+    newTask._id = success;
+    data.todos.push(newTask);
 		task.children().removeClass('maybe');
+
 	});
 })
 
@@ -131,7 +134,9 @@ $('.newTop').click(function() {
 	$('#task').focus();
 });
 
-$('.tOut').click(function() {
+// Delete Todo
+$(document).on('click','.tOut', function() {
+  console.log('got delete');
 	//find which task
 	var i = 0;
 	for (i = data.todos.length - 1; i >= 0; i--) {
