@@ -179,12 +179,20 @@ input {
 	padding:5px 0;
 	border-bottom 3px solid #f1f1f1
 
+#dateAdpt
+	height 100%
+	width 100%
+	display table
+	text-align center
 
 #datepicker
 	background url("http://daniellytle.github.io/Images/cal.png") center no-repeat
 	background-size contain
+	display table-cell
+	vertical-align middle
 	height 100%
-	color transparent
+	color #777
+	font-weight 700
 	cursor pointer
 
 #goButton
@@ -262,6 +270,9 @@ input {
 	-moz-column-fill: auto;
 	column-count: 3;
 	column-fill: auto;
+	-moz-column-break-inside:avoid;
+	-webkit-column-break-inside:avoid;
+	column-break-inside:avoid;
 
 .tOut
 	width 90%

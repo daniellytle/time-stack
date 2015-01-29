@@ -1,4 +1,4 @@
-module.exports = function(grunt) { 
+module.exports = function(grunt) {
     grunt.initConfig({
         pkg: grunt.file.readJSON('package.json'),
 
@@ -45,24 +45,20 @@ module.exports = function(grunt) {
                 files: ['<%= CLIENT_DIR %>/**/*.styl','<%= CLIENT_DIR %>/app.styl'],
                 tasks: ['stylus:compile']
             }
-            // jade: {
-            //     files: ['<%= CLIENT_DIR %>/**/*.jade','<%= CLIENT_DIR %>/*.jade'],
-            //     tasks: ['jade:compile']
-            // }
         },
         concurrent: {
             tasks: ['watch','nodemon'],
             options: {
                 logConcurrentOutput: true
             }
-        },        
+        },
         shell: {
             reset: {
                 command: 'node app/data/init'
             }
         }
     })
-    
+
     grunt.loadNpmTasks('grunt-browserify')
     grunt.loadNpmTasks('grunt-contrib-uglify')
     grunt.loadNpmTasks('grunt-contrib-jade')
