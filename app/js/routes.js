@@ -31,16 +31,13 @@ module.exports = function(app, passport) {
 	    {safe: true, upsert: true},
 	    function(err,model) {
 	      console.log(err);
-				res.send(200);
+				console.log(model);
+				res.send(model.todos[model.todos.length-1].id);
 	    })
 	});
 
-	app.get('/api', function(req, res) {
-
-	});
-
 	app.delete('/api', function(req, res) {
-		console.log("got delete");
+		console.log("delete");
 		console.log(req.query);
 		User.update(
 		  { facebookId: req.query.FbId },
@@ -49,7 +46,7 @@ module.exports = function(app, passport) {
 			if (err)
 				console.log(err);
 			else {
-				res.send(200);
+				res.sendStatus(200);
 			}
 		});
 	});
