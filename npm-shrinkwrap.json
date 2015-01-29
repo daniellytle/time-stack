@@ -720,6 +720,11 @@
         }
       }
     },
+    "mongoose-findorcreate": {
+      "version": "0.1.2",
+      "from": "mongoose-findorcreate@",
+      "resolved": "https://registry.npmjs.org/mongoose-findorcreate/-/mongoose-findorcreate-0.1.2.tgz"
+    },
     "passport": {
       "version": "0.2.1",
       "from": "passport@",

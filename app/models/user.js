@@ -3,7 +3,6 @@
 // User Model
 
 var mongoose      = require('mongoose');
-var bcrypt        = require('bcrypt-nodejs');
 var findOrCreate  = require('mongoose-findorcreate');
 
 // DB Schema
