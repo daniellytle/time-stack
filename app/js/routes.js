@@ -46,6 +46,7 @@ module.exports = function(app, passport) {
 			if (err)
 				console.log(err);
 			else {
+				console.log("success");
 				res.sendStatus(200);
 			}
 		});

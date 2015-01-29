@@ -7,6 +7,8 @@ if ( (location.hash == "#_=_" || location.href.slice(-1) == "#_=_") ) {
     removeHash();
 }
 
+var date;
+
 function removeHash() {
     var scrollV, scrollH, loc = window.location;
     if ('replaceState' in history) {
@@ -27,14 +29,14 @@ function removeHash() {
 
 var picker = new Pikaday(
     {
-        field: document.getElementById('datepicker'),
+        field: document.getElementById('dateHolder'),
         minDate: new Date(),
         // format: 'MMM DD',
         yearRange:[new Date().getFullYear(),2020],
         onSelect: function() {
-            var date = document.createTextNode(this.getMoment().format('Do MMMM YYYY') + ' ');
-            // $('selected').appendChild(date);
-
+            date = this.getMoment();
+            $('#datepicker').css({background:'none'});
+            $('#datepicker').text(this.getMoment().format('MMM DD'));
         }
     });
 
@@ -43,7 +45,7 @@ data.todos.sort(function(a,b) {return a.dueDate < b.dueDate});
 
 for (var i = data.todos.length - 1; i >= 0; i--) {
 	 var create = moment(data.todos[i].createDate);
-	 var due 	= moment(data.todos[i].dueDate,"YYYY-MM-DD");
+	 var due 	= moment(data.todos[i].dueDate);
 	 var today 	= moment();
 
 	 var diff = due.diff(create, 'days');
@@ -77,23 +79,19 @@ $('#goButton').click(function() {
 		return;
 	}
 
-	if($('#datepicker').val() == "") {
+	if(date == undefined) {
 		$('#dateHolder').addClass('empty');
 		return;
 	}
 
-  $('#task').text("");
-  $('#datepicker').text("");
-
 	 var create = moment();
-	 var due 	= moment($('#datepicker').val());
+	 var due 	= date;
 
-	console.log(create, due);
+	console.log(create);
+  console.log(due);
 
-	 var diff = due.diff(create, 'days');
-
-	var d = $('#datepicker').val();
-
+	var diff = due.diff(create, 'days');
+  console.log(diff);
  	var task = $("<div class='tOut'><div class='maybe todo'>"+ $('#task').val() +"</div><div class='status'>"+ diff +"d</div></div>");
 
 
@@ -108,16 +106,13 @@ $('#goButton').click(function() {
 
   var newTask = {
 		name: $('#task').val(),
-		dueDate: $('#datepicker').val()
+		dueDate: due._d,
+    createDate: moment()._d
 	};
 
 	$.post("/api",{
 		Fbid 	: data.facebookId,
-		todo: {
-			name: $('#task').val(),
-			dueDate: $('#datepicker').val(),
-			createDate: moment()._d
-		}
+		todo : newTask
 	},function(success, err) {
 		if(err)
 		console.log(err);
@@ -155,7 +150,7 @@ $(document).on('click','.tOut', function() {
 	    type: 'DELETE',
 	    success: function() {
 	    	console.log("good");
-	    	obj.fadeOut(200);
+	    	obj.fadeOut(200).remove();
 	    },
 	    error: function(err) {
 	    	obj.addClass('maybe');

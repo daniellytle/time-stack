@@ -140,6 +140,7 @@ $(document).on('click','.tOut', function() {
 
 	var Id = data.todos[i]._id;
 	var FbId = data.facebookId;
+  data.todos.splice(i,1);
 
 	var obj = $(this);
 
@@ -149,7 +150,7 @@ $(document).on('click','.tOut', function() {
 	    type: 'DELETE',
 	    success: function() {
 	    	console.log("good");
-	    	obj.fadeOut(200);
+	    	obj.fadeOut(200).remove();
 	    },
 	    error: function(err) {
 	    	obj.addClass('maybe');
