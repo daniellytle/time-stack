@@ -283,7 +283,8 @@ input {
 	-webkit-column-break-inside: avoid;
 	-moz-column-break-inside: avoid;
 	column-break-inside: avoid;
-	background: -webkit-linear-gradient(45deg, #FFF, #F9F9F9);
+	background #eeeeee
+	color #555555
 	position relative
 	-webkit-transition: all .2s ease;
 	-moz-transition: all .2s ease;
@@ -292,7 +293,6 @@ input {
 	margin:0 auto 20px auto
 	margin-left 0
 	border-bottom: 3px solid #e1e1e1
-	background #EDEDED
 	cursor pointer
 
 .tOut:hover
@@ -303,6 +303,7 @@ input {
 	word-wrap break-word
 	font-weight 700
 	margin 10px
+	margin-right 100px
 
 .hidden
 	background red
@@ -315,28 +316,41 @@ input {
 
 .urgent
 	border-color: #D26E6E;
-	background: #F4746D;
-	color: white;
+
+.urgPic
+	background #FF8C85
+
 
 .mild
 	border-color: #DFDF67;
-	background: #FFFF6A;
-	color: #777;
+
+.mildPic
+	background #FFFF6A
 
 .fine
 	border-color: #27B262;
-	background: rgb(46, 204, 113);
-	color: white;
+	// background: rgb(46, 204, 113);
+	//color: white;
+
+.finePic
+	background #54D98D
 
 .status
 	width 40px
 	position: absolute;
-	right: 0;
+	right: 40px;
 	top: 0;
 	padding 10px
 	text-align center
 	font-weight 700
 
+.icon
+	width 40px
+	position absolute
+	right 0
+	top 0
+	height 100%
+	border-radius 0 2px 0 0
 
 .empty
 	background warnred

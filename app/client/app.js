@@ -48,17 +48,16 @@ for (var i = data.todos.length - 1; i >= 0; i--) {
 	 var today 	= moment();
 
 	 var diff = due.diff(create, 'days');
-	 var task = $("<div class='tOut'><div class='todo'>"+ data.todos[i].name +"</div><div class='status'>"+ diff +"d</div></div>");
+	 var task = $("<div class='tOut'><div class='todo'>"+ data.todos[i].name +
+    "</div><div class='status'>"+ (diff + 1) +"d</div><div class='icon'></div></div>");
 
-
-	 console.log(diff);
 
 	 if(diff < 2) {
-	 	task.addClass('urgent');
+	 	task.addClass('urgent').children('.icon').addClass('urgPic');
 	 } else if(diff < 4) {
-	 	task.addClass('mild');
+	 	task.addClass('mild').children('.icon').addClass('mildPic');
 	 } else
-	 	task.addClass('fine');
+	 	task.addClass('fine').children('.icon').addClass('finePic');
 
 	task.appendTo('.todos').fadeIn('slow');
 };
@@ -91,17 +90,18 @@ $('#goButton').click(function() {
 
 	var diff = due.diff(create, 'days');
   console.log(diff);
- 	var task = $("<div class='tOut'><div class='maybe todo'>"+ $('#task').val() +"</div><div class='status'>"+ diff +"d</div></div>");
+ 	var task = $("<div class='tOut'><div class='maybe todo'>"+ $('#task').val() +
+   "</div><div class='status'>"+ (diff+1) +"d</div><div class='icon'></div></div>");
 
 
-	if(diff < 2) {
-	 	task.addClass('urgent');
-	 } else if(diff < 4) {
-	 	task.addClass('mild');
-	 } else
-	 	task.addClass('fine');
+   if(diff < 2) {
+     task.addClass('urgent').children('.icon').addClass('urgPic');
+   } else if(diff < 4) {
+     task.addClass('mild').children('.icon').addClass('mildPic');
+   } else
+     task.addClass('fine').children('.icon').addClass('finePic');
 
-	task.appendTo('.todos').fadeIn('slow');
+
 
   var newTask = {
 		name: $('#task').val(),
@@ -115,12 +115,13 @@ $('#goButton').click(function() {
 	},function(success, err) {
 		if(err)
 		console.log(err);
-		else
-			console.log(success);
-    newTask._id = success;
-    data.todos.push(newTask);
-		task.children().removeClass('maybe');
-
+		else {
+  		console.log(success);
+      newTask._id = success;
+      task.appendTo('.todos').fadeIn(500);
+      data.todos.push(newTask);
+  		task.children().removeClass('maybe');
+    }
 	});
 })
 
@@ -150,7 +151,7 @@ $(document).on('click','.tOut', function() {
 	    type: 'DELETE',
 	    success: function() {
 	    	console.log("good");
-	    	obj.fadeOut(200).remove();
+	    	obj.fadeOut(500).remove();
 	    },
 	    error: function(err) {
 	    	obj.addClass('maybe');
