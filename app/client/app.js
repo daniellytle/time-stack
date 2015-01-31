@@ -101,6 +101,7 @@ $('#goButton').click(function() {
    } else
      task.addClass('fine').children('.icon').addClass('finePic');
 
+    task.appendTo('.todos').fadeIn('slow');
 
 
   var newTask = {
@@ -113,15 +114,12 @@ $('#goButton').click(function() {
 		Fbid 	: data.facebookId,
 		todo : newTask
 	},function(success, err) {
-		if(err)
-		console.log(err);
-		else {
   		console.log(success);
       newTask._id = success;
-      task.appendTo('.todos').fadeIn(500);
       data.todos.push(newTask);
-  		task.children().removeClass('maybe');
-    }
+      console.log('removing');
+  		task.children('.maybe').removeClass('maybe');
+
 	});
 })
 

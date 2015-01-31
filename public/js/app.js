@@ -53,8 +53,6 @@ for (var i = data.todos.length - 1; i >= 0; i--) {
     "</div><div class='status'>"+ (diff + 1) +"d</div><div class='icon'></div></div>");
 
 
-	 console.log(diff);
-
 	 if(diff < 2) {
 	 	task.addClass('urgent').children('.icon').addClass('urgPic');
 	 } else if(diff < 4) {
@@ -104,7 +102,8 @@ $('#goButton').click(function() {
    } else
      task.addClass('fine').children('.icon').addClass('finePic');
 
-	task.appendTo('.todos').fadeIn('slow');
+    task.appendTo('.todos').fadeIn('slow');
+
 
   var newTask = {
 		name: $('#task').val(),
@@ -118,12 +117,12 @@ $('#goButton').click(function() {
 	},function(success, err) {
 		if(err)
 		console.log(err);
-		else
-			console.log(success);
-    newTask._id = success;
-    data.todos.push(newTask);
-		task.children().removeClass('maybe');
-
+		else {
+  		console.log(success);
+      newTask._id = success;
+      data.todos.push(newTask);
+  		task.children().removeClass('maybe');
+    }
 	});
 })
 
