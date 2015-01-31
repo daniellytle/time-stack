@@ -74,12 +74,12 @@ $('body').keydown(function (e){
 $('#goButton').click(function() {
 	//check empty
 	if($('#task').val() == "") {
-		$('.newTop').addClass('empty');
+		//$('.newTop').addClass('empty');
 		return;
 	}
 
 	if(date == undefined) {
-		$('#dateHolder').addClass('empty');
+		//$('#dateHolder').addClass('empty');
 		return;
 	}
 
@@ -115,14 +115,12 @@ $('#goButton').click(function() {
 		Fbid 	: data.facebookId,
 		todo : newTask
 	},function(success, err) {
-		if(err)
-		console.log(err);
-		else {
   		console.log(success);
       newTask._id = success;
       data.todos.push(newTask);
-  		task.children().removeClass('maybe');
-    }
+      console.log('removing');
+  		task.children('.maybe').removeClass('maybe');
+
 	});
 })
 
