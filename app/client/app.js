@@ -73,12 +73,12 @@ $('body').keydown(function (e){
 $('#goButton').click(function() {
 	//check empty
 	if($('#task').val() == "") {
-		$('.newTop').addClass('empty');
+		//$('.newTop').addClass('empty');
 		return;
 	}
 
 	if(date == undefined) {
-		$('#dateHolder').addClass('empty');
+		//$('#dateHolder').addClass('empty');
 		return;
 	}
 
