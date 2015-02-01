@@ -19,6 +19,10 @@ module.exports = function(app, passport) {
 		res.redirect('/login');
 	});
 
+	app.get('/about', function(req, res) {
+		res.render('about');
+	})
+
 	// API ROUTES =====================================
 
 	//New Todo

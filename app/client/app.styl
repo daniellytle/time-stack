@@ -94,13 +94,14 @@ a
 }
 
 .topBar {
-	height 44px
-	background white
+	padding 10px 0
+	height 40px
+	background #F8F8F8
 	color lightred
-	margin-bottom 20px
+	margin-bottom 40px
 	font-weight 700
-	position fixed
 	right 0px
+	border-bottom 1px solid #e1e1e1
 }
 
 #profPic {
@@ -111,9 +112,8 @@ a
 }
 
 #lo {
-	background: url("/img/Logo.png") center no-repeat;
+	background: url("/img/Icon.png") center no-repeat;
 	height: 100%;
-	width: 100px;
 	background-size: contain;
 }
 
@@ -122,15 +122,12 @@ a
 	height:100%;
 
 .logo {
-	position fixed
-	left 0px
-	top 15px
-	bottom 0
-	height 46px
+	float left
+	height 100%
 	display inline-block
 	font-family 'Pacifico'
 	font-size 25px
-	margin-left 25px
+	margin-left 20px
 	font-weight 700
 	display table
 }
@@ -273,6 +270,14 @@ input {
 	-moz-column-break-inside:avoid;
 	-webkit-column-break-inside:avoid;
 	column-break-inside:avoid;
+	@media screen and (max-width: 800px)
+		-webkit-column-count: 2;
+		-moz-column-count: 2;
+		column-count: 2;
+	@media screen and (max-width: 500px)
+		-webkit-column-count: 1;
+		-moz-column-count: 1;
+		column-count: 1;
 
 .tOut
 	width 90%
@@ -294,6 +299,8 @@ input {
 	margin-left 0
 	border-bottom: 3px solid #e1e1e1
 	cursor pointer
+	@media screen and (max-width: 400px)
+		width 100%
 
 .tOut:hover
 	margin-left 10px
