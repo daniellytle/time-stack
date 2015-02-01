@@ -132,14 +132,16 @@ a
 	display table
 }
 
-.newHolder {
+.newHolder
 	width 700px
 	margin 0 auto
 	background lightg
 	position relative
 	margin-bottom 40px
 	margin-top 15px
-}
+	@media screen and (max-width: 800px)
+		width 90%
+
 
 .newTop {
 	padding:11px 20px
@@ -147,7 +149,7 @@ a
 	border-right 1px solid lightg
 	font-family 'Open Sans'
 	border-right none
-	border-radius 5px 0 0 5px
+	border-radius 2px 0 0 2px
 	border-bottom 3px solid #e1e1e1
 
 }
@@ -161,7 +163,7 @@ input {
 }
 
 #task {
-	color: #404040;
+	color: #747474;
 	font-weight: 700;
 }
 
@@ -205,7 +207,7 @@ input {
 	color white
 	padding 7px 0
 	border-bottom 3px solid #29B363
-	border-radius 0 5px 5px 0
+	border-radius 0 3px 3px 0
 	transition .2s ease
 
 

@@ -50,7 +50,7 @@ for (var i = data.todos.length - 1; i >= 0; i--) {
 
 	 var diff = due.diff(create, 'days');
 	 var task = $("<div class='tOut'><div class='todo'>"+ data.todos[i].name +
-    "</div><div class='status'>"+ (diff + 1) +"d</div><div class='icon'></div></div>");
+    "</div><div class='status'>"+ (diff + 1) +"</div><div class='icon'></div></div>");
 
 
 	 if(diff < 2) {
@@ -92,7 +92,7 @@ $('#goButton').click(function() {
 	var diff = due.diff(create, 'days');
   console.log(diff);
  	var task = $("<div class='tOut'><div class='maybe todo'>"+ $('#task').val() +
-   "</div><div class='status'>"+ (diff+1) +"d</div><div class='icon'></div></div>");
+   "</div><div class='status'>"+ (diff+1) +"</div><div class='icon'></div></div>");
 
 
    if(diff < 2) {
