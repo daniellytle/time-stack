@@ -1,8 +1,6 @@
 (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
 // GOTTA DO APP - DANIEL WILSON
 
-console.log('app.js');
-
 if ( (location.hash == "#_=_" || location.href.slice(-1) == "#_=_") ) {
   removeHash();
 }
@@ -42,8 +40,6 @@ var picker = new Pikaday(
 
   //Inital Load
   data.todos.sort(function(a,b) {
-    console.log(a.dueDate);
-    console.log(b.dueDate);
     return moment(a.dueDate) < moment(b.dueDate);
   });
 
@@ -56,7 +52,6 @@ var picker = new Pikaday(
     var task = $("<div class='tOut'><div class='todo'>"+ data.todos[i].name +
     "</div><div class='status'>"+ (diff + 1) +"</div><div class='icon'></div></div>");
 
-    console.log(diff);
     if(diff < 2) {
       task.addClass('urgent').children('.icon').addClass('urgPic');
     } else if(diff < 4) {
@@ -90,11 +85,7 @@ var picker = new Pikaday(
     var create = moment();
     var due 	= date;
 
-    console.log(create);
-    console.log(due);
-
     var diff = due.diff(create, 'days');
-    console.log(diff);
     var task = $("<div class='tOut'><div class='maybe todo'>"+ $('#task').val() +
     "</div><div class='status'>"+ (diff+1) +"</div><div class='icon'></div></div>");
 
@@ -109,18 +100,23 @@ var picker = new Pikaday(
     // find right spot
     var i;
     for(i = data.todos.length-1 ; i > -1; --i) {
-      console.log(moment(data.todos[i].dueDate));
-      console.log(due);
 
       if(moment(data.todos[i].dueDate) > due) {
-          alert(i);
           insertAtIndex(data.todos.length - i,task);
           break;
       }
     }
 
-    if(i == -1)
-      insertAtIndex(data.todos.length - 1,task);
+    if(i == -1) {
+      if(data.todos.length)
+        insertAtIndex(data.todos.length + 1,task);
+      else {
+        insertAtIndex(0, task);
+      }
+    } else if(i == data.todos.length - 1) {
+      insertAtIndex(0,task);
+    }
+
 
     var newTask = {
       name: $('#task').val(),
@@ -132,10 +128,8 @@ var picker = new Pikaday(
       Fbid 	: data.facebookId,
       todo : newTask
     },function(success, err) {
-      console.log(success);
       newTask._id = success;
       data.todos.push(newTask);
-      console.log('removing');
       task.children('.maybe').removeClass('maybe');
 
     });
@@ -147,7 +141,6 @@ var picker = new Pikaday(
 
   // Delete Todo
   $(document).on('click','.tOut', function() {
-    console.log('got delete');
     //find which task
     var i = 0;
     for (i = data.todos.length - 1; i >= 0; i--) {
@@ -166,7 +159,6 @@ var picker = new Pikaday(
       url: '/api' + '?' + $.param({"Id": Id, "FbId" : FbId}),
       type: 'DELETE',
       success: function() {
-        console.log("good");
         obj.fadeOut(500).remove();
       },
       error: function(err) {
