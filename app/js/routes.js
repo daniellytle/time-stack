@@ -21,7 +21,7 @@ module.exports = function(app, passport) {
 
 	app.get('/about', function(req, res) {
 		res.render('about');
-	})
+	});
 
 	// API ROUTES =====================================
 

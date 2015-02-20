@@ -23,7 +23,6 @@ function removeHash() {
   }
 }
 
-
 var picker = new Pikaday(
   {
     field: document.getElementById('dateHolder'),
@@ -47,7 +46,7 @@ var picker = new Pikaday(
     var due 	= moment(data.todos[i].dueDate);
     var today 	= moment();
 
-    var diff = due.diff(create, 'days');
+    var diff = due.diff(today, 'days');
     var task = $("<div class='tOut'><div class='todo'>"+ data.todos[i].name +
     "</div><div class='status'>"+ (diff + 1) +"</div><div class='icon'></div></div>");
 
