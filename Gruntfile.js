@@ -16,12 +16,6 @@ module.exports = function(grunt) {
                 dest: 'public/js/app.js'
             }
         },
-        // jade: {
-        //     compile: {
-        //         src: ['<%= CLIENT_DIR %>/*.jade'],
-        //         dest: 'public/index.html'
-        //     }
-        // },
         stylus: {
             compile: {
                 options: {
